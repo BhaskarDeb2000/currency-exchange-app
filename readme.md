@@ -50,4 +50,4 @@ A simple and responsive web app that allows users to check live currency convers
 
 This app is deployed on Vercel. You can access it live via:
 
-[https://your-vercel-app-url](https://your-vercel-app-url)
+[https://currency-exchange-app-viio.vercel.app/](https://currency-exchange-app-viio.vercel.app/)
