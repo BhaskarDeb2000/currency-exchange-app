@@ -1,6 +1,8 @@
-interface Data {
-	conversion_rates: Record<string, number>;
-}
+import { Data } from './types';
+
+const apiKey = import.meta.env.VITE_EXCHANGE_API_KEY;
+
+const baseURL = `https://v6.exchangerate-api.com/v6/${apiKey}/latest/`;
 
 class FetchWrapper {
 	baseURL: string;
@@ -44,13 +46,6 @@ const resultEl = document.querySelector('#conversion-result') as HTMLParagraphEl
 
 let conversionsArr: [string, number][] = [];
 
-const apiKey = "907cd9a79a8ce59162a75982"
-
-console.log(apiKey);
-
-const baseURL = `https://v6.exchangerate-api.com/v6/${apiKey}/latest/`;
-
-
 const apiTool = new FetchWrapper(baseURL);
 
 const getConversionRates = async () => {
@@ -72,15 +67,9 @@ const getConversionRates = async () => {
 
 baseCurrencyEl.addEventListener('change', getConversionRates);
 
-
 targetCurrencyEl.addEventListener('change', getConversionRates);
 
 const currencyConversion = (currencyArr: [string, number][], target: string) => {
-	let conversionRate;
-	for (const item of currencyArr) {
-		if (item[0] === target) {
-			conversionRate = item[1];
-		}
-	}
-	resultEl.textContent = conversionRate ? conversionRate.toString() : 'error';
+	const conversionRate = currencyArr.find(([currency]) => currency === target)?.[1];
+	resultEl.textContent = conversionRate ? conversionRate.toString() : 'fetching error';
 };
